@@ -89,3 +89,7 @@ endmodule
 
 
 **RESULTS**
+
+Thus the OUTPUT’s of SR Flip Flop is verified by synthesizing and simulating the VERILOG code
+
+
