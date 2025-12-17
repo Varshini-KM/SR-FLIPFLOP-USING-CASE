@@ -52,21 +52,26 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber: 25018756
 
 ```
-module sr_ff(s,r,clk,q,qbar);
-input s,r,clk;
-output reg q;
-output reg qbar;
-initial 
-begin
-q=0;
-qbar=1;
-end
-always @(posedge clk)
-begin
-   q=s|(~r&q);
-   qbar=r|(~s&~q);
-end
+module sr_ff (s, r, clk, rst, q);
+  input s, r, clk, rst;
+  output reg q;
+
+  always @(posedge clk or posedge rst)
+ begin
+    if (rst)
+      q <= 0; // Reset the flip-flop
+    else
+ begin
+      case ({s, r}) // S and R control the behavior
+        2'b00: q <= q;    // No change
+        2'b01: q <= 0;    // Reset
+        2'b10: q <= 1;    // Set
+        2'b11: q <= 0;    // Invalid state, typically treated as reset
+      endcase
+    end
+  end
 endmodule
+
 ```
 
 
